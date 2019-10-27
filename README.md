@@ -1,5 +1,32 @@
 # wasm-notes
 
+<!-- toc -->
+
+- [Notes](#notes)
+  * [WebAssembly for Web Developers (Google I/O '19)](#webassembly-for-web-developers-google-io-19)
+    + [Basics](#basics)
+    + [How did they do that?](#how-did-they-do-that)
+    + [Ecosystems](#ecosystems)
+    + [How do you convert C code to Javascript? How do you configure it?](#how-do-you-convert-c-code-to-javascript-how-do-you-configure-it)
+    + [Takeaway 1](#takeaway-1)
+    + [Performance](#performance)
+    + [Compilation of javascript vs WASM on web](#compilation-of-javascript-vs-wasm-on-web)
+    + [AssemblyScript?](#assemblyscript)
+    + [Things to note](#things-to-note)
+    + [Future of WASM](#future-of-wasm)
+  * [Build the future of the web with WebAssembly and more (Google I/O '18)](#build-the-future-of-the-web-with-webassembly-and-more-google-io-18)
+    + [How AutoCAD turned their desktop app into a web app with wasm](#how-autocad-turned-their-desktop-app-into-a-web-app-with-wasm)
+    + [WASM is better than a web worker](#wasm-is-better-than-a-web-worker)
+    + [Wasm entirely freed from going through javascript](#wasm-entirely-freed-from-going-through-javascript)
+- [Resources](#resources)
+  * [Watch lists](#watch-lists)
+  * [Reading lists](#reading-lists)
+    + [How-tos](#how-tos)
+  * [Projects](#projects)
+    + [Languages](#languages)
+
+<!-- tocstop -->
+
 # Notes
 
 ## [WebAssembly for Web Developers (Google I/O '19)](https://www.youtube.com/watch?v=njt-Qzw0mVY)
@@ -90,6 +117,8 @@ See more at:
 ## Watch lists
 - [WebAssembly for Web Developers (Google I/O '19)](https://www.youtube.com/watch?v=njt-Qzw0mVY)
 - [Build the future of the web with WebAssembly and more (Google I/O '18)](https://www.youtube.com/watch?v=BnYq7JapeDA)
+- [WebAssembly Extensions For Network Proxies, John Plevyak (from AutoDesk (CAD) team)](https://youtu.be/OIUPf8m7CGA)
+- [The future of Webassembly (Lin Clark, Till Schneidereit, Mozilla)](https://www.youtube.com/watch?v=_gohblbI2Ds)
 
 ## Reading lists
 ### How-tos 
@@ -97,14 +126,24 @@ See more at:
 - [Extending the browser with WebAssembly (How to port the source code of a video codec into a browser)](https://developers.google.com/web/updates/2018/08/wasm-av1) [[Source code](https://github.com/GoogleChromeLabs/wasm-av1)]
 - [How to compile C to wasm without emscripten](https://dassur.ma/things/c-to-webassembly/)
 - [Making really tiny wasm graphics demos](http://cliffle.com/blog/bare-metal-wasm/)
+- [How to do parcel + rust + wasm + three.js](https://github.com/cwervo/parc3l)
+- [How to use rust modules for web development](https://medium.com/@atulanand94/using-rust-modules-for-javascript-web-development-part-i-e6dec27df7b2)
+- [Pragmatic compiling of C++ to WebAssembly. A Guide](https://medium.com/@tdeniffel/pragmatic-compiling-from-c-to-webassembly-a-guide-a496cc5954b8)
+- [Emscripting a C library to Wasm](https://developers.google.com/web/updates/2018/03/emscripting-a-c-library)
+- [How to link c++ with javascript for wasm #1, with embind](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/embind.html#embind )
+- [How to link c++ with javascript for wasm #2, with webidl-binder](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/WebIDL-Binder.html#webidl-binder)
+- [How to use rust + wasm to visualize 3d data](https://users.rust-lang.org/t/point-cloud-visualizations/31394/6)
+- [How to make a library in rust, compile it down to wasm](https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_wasm)
+- [How to make a minimal example of animating HTML5 canvas from C++ using SDL through WebAssembly](https://timhutton.github.io/sdl-canvas-wasm/)
+- [How to do 3d + rust + webgl](http://www.chinedufn.com/3d-webgl-basic-water-tutorial/)
 
 ## Projects
-- [Webasssembly studio](https://webassembly.studio/)
+### Languages
+- [wasm studio](https://webassembly.studio/)
+- [wasm homepage](https://webassembly.eu/)
 - [wasm design](https://github.com/WebAssembly/design)
 - [AssemblyScript: A strictly typed subset of Typescript that compiles down to wasm](https://github.com/AssemblyScript/assemblyscript)
 - [Walt: a JavaScript-like syntax for WebAssembly text format](https://github.com/ballercat/walt)
 - [Thinkscript: A low-level programming language inspired by TypeScript](https://github.com/evanw/thinscript)
 - [Nectarjs: Javascript's God Mode (compilation target includes wasm)](https://github.com/NectarJS/nectarjs)
-
-## Blogs
-- [Webassembly homepage](https://webassembly.eu/)
+- [Rust bindings for Web/DOM APIs](https://github.com/rustwasm/wasm-bindgen)

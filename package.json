@@ -1,0 +1,26 @@
+{
+  "name": "wasm-notes",
+  "version": "0.1.0",
+  "description": "Notes for WebAssembly!",
+  "main": "none",
+  "scripts": {
+    "doc": "markdown-toc -i README.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://9oelM@github.com/9oelM/wasm-notes.git"
+  },
+  "keywords": [
+    "WebAssembly",
+    "notes"
+  ],
+  "author": "Joel Mun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/9oelM/wasm-notes/issues"
+  },
+  "homepage": "https://github.com/9oelM/wasm-notes#readme",
+  "devDependencies": {
+    "markdown-toc": "^1.2.0"
+  }
+}
