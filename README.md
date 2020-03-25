@@ -113,6 +113,34 @@ See more at:
 - wasm: it has to go through javacsript to have a reference to DOM. After: it won't be. 
 - js module supports for wasm files will be supported as well.
 
+## SIMD in WebAssembly
+Fresh out of the oven, v8 released its support for wasm SIMD in late Jan, 2020.
+
+### So what is SIMD? It:
+- is a single Instruction, Multiple Data
+- performs the same operation on multiple data elements
+- can benefit audio/video codecs, image processors, real-time motion tracking in video, ... (which have many repetitive and costly ops like matrix product)
+- essentially, is a dot product of two vectors
+- directly uses the computer hardware - CPU. It uses set of instructions widely supported by majority of CPUs in the market. (e.g. Intel SIMD instruction extensions (called Streaming SIMD Extensions (SSE), which are set of instructions for x86 architectures) or NVIDIA GPU)
+- can use up to 128 bits in wasm as of now
+
+![simd](./simd.png)
+(pic from [wasmer's article](https://medium.com/wasmer/webassembly-and-simd-13badb9bf1a8))
+
+### Why not SIMD in js but wasm?
+- see https://github.com/tc39/ecmascript_simd. TC39 decided not to implement SIMD. Instead they give support for SIMD in wasm.
+
+### Emscripten already can turn your code into something that uses SIMD
+- with SIMD option enabled, it can automatically detect and put SIMD in the appropriate places.
+
+See more at:
+- https://v8.dev/features/simd
+- https://github.com/tc39/ecmascript_simd
+- https://github.com/WebAssembly/simd
+- https://medium.com/wasmer/webassembly-and-simd-13badb9bf1a8
+- https://course.ece.cmu.edu/~ece740/f13/lib/exe/fetch.php?media=seth-740-fall13-module5.1-simd-vector-gpu.pdf (technical)
+- https://sites.cs.ucsb.edu/~tyang/class/240a17/slides/SIMD.pdf (technical)
+
 # Resources
 ## Watch lists
 - [WebAssembly for Web Developers (Google I/O '19)](https://www.youtube.com/watch?v=njt-Qzw0mVY)
