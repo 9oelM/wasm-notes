@@ -18,6 +18,16 @@
     + [How AutoCAD turned their desktop app into a web app with wasm](#how-autocad-turned-their-desktop-app-into-a-web-app-with-wasm)
     + [WASM is better than a web worker](#wasm-is-better-than-a-web-worker)
     + [Wasm entirely freed from going through javascript](#wasm-entirely-freed-from-going-through-javascript)
+  * [SIMD in WebAssembly](#simd-in-webassembly)
+    + [So what is SIMD? It:](#so-what-is-simd-it)
+    + [Why not SIMD in js but wasm?](#why-not-simd-in-js-but-wasm)
+    + [Emscripten already can turn your code into something that uses SIMD](#emscripten-already-can-turn-your-code-into-something-that-uses-simd)
+  * [WebAssembly and what makes it fast](#webassembly-and-what-makes-it-fast)
+    + [How JIT works](#how-jit-works)
+      - [How JS runs on browser](#how-js-runs-on-browser)
+      - [Just-in-time compiler takes both](#just-in-time-compiler-takes-both)
+    + [Why Javascript is slow](#why-javascript-is-slow)
+    + [Why wasm is fater (and js is slower)](#why-wasm-is-fater-and-js-is-slower)
 - [Resources](#resources)
   * [Watch lists](#watch-lists)
   * [Reading lists](#reading-lists)
@@ -140,6 +150,70 @@ See more at:
 - https://medium.com/wasmer/webassembly-and-simd-13badb9bf1a8
 - https://course.ece.cmu.edu/~ece740/f13/lib/exe/fetch.php?media=seth-740-fall13-module5.1-simd-vector-gpu.pdf (technical)
 - https://sites.cs.ucsb.edu/~tyang/class/240a17/slides/SIMD.pdf (technical)
+
+## WebAssembly and what makes it fast
+Notes are taken/copied from [this series](https://hacks.mozilla.org/2017/02/what-makes-webassembly-fast/)
+
+### [How JIT works](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/)
+You would need this knowledge for understanding later parts on why wasm is faster.
+
+#### How JS runs on browser
+- we write js, but machine needs binary, machine-readable codes
+- to 'translate' js, we can use:
+  - interpreter: translation happens line-by-line, on the fly
+    - good: fast
+    - bad: useless translation cost when you are running the same code over and over (ex. loops)
+  - compiler: doesn't transalte on the fly. It has to translate everything beforehand.
+    - good: 
+      - can optimize the repetitive codes like loops
+      - has a time to do additional optimizations
+    - bad: slower
+
+#### Just-in-time compiler takes both
+- a 'monitor' watches the code as it runs, and looks at the number of running times and used types.
+  - 1st time: it runs everything through the interpreter (because it doesn't know anything)
+    - If certain codes are run a few times, that segment of code is called warm.
+    - If it’s run a lot, then it’s called hot.
+- baseline compiler will run after the interpretor. 
+  - If a function is used a lot, the monitor will use the compiled version instead of interpreting it again 
+  - will do certain optimizations
+  - if the same code was assumed to be run but not run, JIT decides that it has made a wrong assumption and throws away the optimized code. Then you go back to either interpretor or compiled version again. (= deoptimization)
+  - for example, if you are running over a loop of an array of items assumed to be numbers, the compiler may assume that all types are numbers in the array, so it branches out other types to be faster (because types are dynamic in js). But if some item is not a number, it decides that its assumption was wrong.  
+- doing a lot of optimization and deoptimization may take a long time, so browsers have a limit on how many times.
+
+### Why Javascript is slow
+- It improved a lot compared to long time ago (no optimization happened)
+- Brief overview of JS engine's job nowadays (may differ a bit from engine to engine):
+  - parse: source code => interpreter-readable code
+  - compile + optimize: the time that is spent in the baseline compiler and optimizing compiler.
+  - re-optimize: JIT works out failed assumptions
+  - execute
+  - gc
+- big improvements possible due to JIT
+- but still slow compared to wasm
+
+### Why wasm is fater (and js is slower)
+- Overiew of how wasm runs:
+  - fetch: faster than js because it's smaller (compressed, binary)
+  - parsing: 
+    - wasm does not go through any steps to become an IR (intermediate representation) because it already is
+    - js needs to go through source code => AST => IR (bytecode)
+  - compiling + optimizing:
+    - The compiler doesn't need to know what types are being used before it starts compiling optimized code.
+    - Compiler does not need to look at different versions of the same code based on those different types it observes.
+    - More optimizations have already been done ahead of time in LLVM for wasm
+  - reoptimizing: JIT doesn’t need to make assumptions about types based on data it gathers during runtime. No reoptimization for wasm.
+  - executing: 
+    - js:
+      - needs to be in a JIT-friendly way to run faster (and that's still slow)
+      - optimizations in different browsers' JITs are different anyways, so performance may differ 
+    - wasm:
+      - it gives machine-friendly instructions because it's designed to target a compiler
+  - gc:
+    - you don't have control over gc in js, meaning less control on performance
+    - wasm: no gc at all, meaning consistent performance (but proposal is being made)
+
+
 
 # Resources
 ## Watch lists
